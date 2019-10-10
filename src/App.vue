@@ -1,19 +1,20 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <h1>MXW </h1>
+    <MxwLedger msg="Minimal MXW+Ledger delegation example" />
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import MxwLedger from './components/MxwLedger';
+import './assets/bootstrap-3.3.7/css/bootstrap.min.css';
 
 export default {
-  name: 'app',
-  components: {
-    HelloWorld
-  }
-}
+    name: 'App',
+    components: {
+        MxwLedger,
+    },
+};
 </script>
 
 <style>
