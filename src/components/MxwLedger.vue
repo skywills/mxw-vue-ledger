@@ -25,6 +25,13 @@
       type="radio"
       value="WebUSB">
     <label for="webusb">WebUSB</label>
+    <input
+      id="u2f"
+      v-model="transportChoice"
+      type="radio"
+      value="U2F"
+    >
+    <label for="u2f">U2F</label>    
     <br>
     <!--
         Commands
@@ -134,6 +141,8 @@
 <script>
 // eslint-disable-next-line import/no-extraneous-dependencies
 import TransportWebUSB from '@ledgerhq/hw-transport-webusb';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import TransportU2F from '@ledgerhq/hw-transport-u2f';
 import { LedgerSigner } from 'mxw-ledger-signer';
 import { JsonRpcProvider } from 'mxw-sdk-js/dist/providers';
 import { formatMxw, parseMxw } from 'mxw-sdk-js/dist/utils';
@@ -197,11 +206,21 @@ export default {
             let transport = null;
 
             this.log(`Trying to connect via ${this.transportChoice}...`);
+            if (this.transportChoice === 'WebUSB') {
                 try {
                     transport = await TransportWebUSB;
                 } catch (e) {
                     this.log(e);
                 }
+            }
+
+            if (this.transportChoice === 'U2F') {
+                try {
+                    transport = await TransportU2F;
+                } catch (e) {
+                    this.log(e);
+                }
+            }
             
             return transport;
         },
