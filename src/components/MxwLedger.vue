@@ -10,6 +10,15 @@
     >
     <label for="webusb">Mainnet</label>
     <input
+      id="uatnet"
+      v-model="networkChoice"
+      type="radio"
+      value="https://uatnet-rpc.maxonrow.com"
+      @click="networkClick"
+      :disabled="connected"
+    >
+    <label for="u2f">Uatnet</label>    
+    <input
       id="alloys"
       v-model="networkChoice"
       type="radio"
@@ -203,26 +212,26 @@ export default {
         
         },
         async getTransport() {
-            let transport = null;
+          let transport = null
 
-            this.log(`Trying to connect via ${this.transportChoice}...`);
-            if (this.transportChoice === 'WebUSB') {
-                try {
-                    transport = await TransportWebUSB;
-                } catch (e) {
-                    this.log(e);
-                }
+          this.log(`Trying to connect via ${this.transportChoice}...`)
+          if (this.transportChoice === 'WebUSB') {
+            try {
+              transport = await TransportWebUSB
+            } catch (e) {
+              this.log(e)
             }
+          }
 
-            if (this.transportChoice === 'U2F') {
-                try {
-                    transport = await TransportU2F;
-                } catch (e) {
-                    this.log(e);
-                }
+          if (this.transportChoice === 'U2F') {
+            try {
+              transport = await TransportU2F
+            } catch (e) {
+              this.log(e)
             }
-            
-            return transport;
+          }
+
+          return transport
         },
         connect(){
           this.errors=[];
